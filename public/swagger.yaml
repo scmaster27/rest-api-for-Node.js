@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: REST API For Node.js
+  version: 1.0.0
+servers:
+- url: http://localhost:3000
+  description: Rest API
+paths:
+  /todo:
+    post:
+      summary: todoデータ登録
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inline_response_200'
+        required: true
+      responses:
+        "200":
+          description: OK（最新データのidを返却)
+    get:
+      summary: 全てのtodoデータ取得
+      responses:
+        "200":
+          description: OK（全てのtodoデータ取得)
+  /todo/{id}:
+    get:
+      summary: 特定idに紐づくtodoデータ取得
+      parameters:
+      - name: id
+        in: path
+        description: todoデータを検索するためのid
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK（特定idに紐づくtodoデータ取得)
+    put:
+      summary: 特定idに紐づくtodoデータ更新
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: todoデータを更新するためのid
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inline_response_200'
+        required: true
+      responses:
+        "200":
+          description: OK
+    delete:
+      summary: 特定idに紐づくtodoデータ削除
+      parameters:
+      - name: id
+        in: path
+        description: todoデータを削除するためのid
+        required: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+components:
+  schemas:
+    inline_response_200:
+      type: object
+      properties:
+        title:
+          type: string
+          example: title_test
+        content:
+          type: string
+          example: content_test
